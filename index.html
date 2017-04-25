@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Shoe catalogue</title>
+    <link rel="stylesheet" href="shoe_catalogue.css">
+    <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>
+  </head>
+
+  <body>
+    <script type="text/handlebars-x" id="myTemplate">
+    {{#each shoe}}
+     <div class="items">
+       <img src="shoes/{{image}}" alt="Brand image">
+       <p>Brand name: {{brand}}</p>
+       <p>Color: {{color}}</p>
+       <p>Size: {{size}}</p>
+       <p>In stock: {{in_stock}}</p>
+       <p>Price: R{{price}}</p>
+      </div>
+     {{/each}}
+    </script>
+
+    <script type="text/handlebars-x" id="myFilterTemplate">
+      <div class="box">
+        <label for="option">Brand</label>
+        <select class="brandsSelect" name="">
+          <option value="AllBrands"> All brands</option>
+          {{#each brandFilter}}
+            <option value="{{this}}">{{this}}</option>
+            {{/each}}
+        </select>
+      </div>
+
+      <div class="box">
+        <label for="option">Color</label>
+        <select class="colorsSelect" name="" >
+          <option value="AllColors">All colors</option>
+          {{#each colorFilter}}
+            <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+    <div class="box">
+      <label for="option">Size</label>
+      <select class="sizesSelect" name="">
+        <option value="AllSizes">All sizes</option>
+        {{#each sizeFilter}}
+          <option value="{{this}}">{{this}}</option>
+        {{/each}}
+        </select>
+      </div>
+
+      <div class="box" id="buttonDiv">
+        <button type="button" name="button" id="searchButton">Search</button>
+      </div>
+    </script>
+
+    <div class="container">
+      <div class="overlay">
+        <div class="additems">
+          <div class="closeicon">
+            <img src="shoes/x.png" alt="">
+          </div>
+
+          <h1>Upload an item</h1>
+          <div class="pair">
+            <label for="input">Brand name:</label>
+            <input type="text" name="" value="" placeholder="whats the brand name?" id="inputBrand">
+          </div>
+
+          <div class="pair">
+            <label for="input">Color:</label>
+            <input type="text" name="" value="" placeholder="what color?" id="inputColor">
+          </div>
+
+          <div class="pair">
+            <label for="input">Size:</label>
+            <input type="text" name="" value="" placeholder="what size?" id="inputSize">
+          </div>
+
+          <div class="pair">
+            <label for="input">In stock:</label>
+            <input type="text" name="" value="" placeholder="how many do we have?" id="inputInStock">
+          </div>
+
+          <div class="pair">
+            <label for="input">Price:</label>
+            <input type="text" name="" value="" placeholder="how much?" id="inputPrice">
+          </div>
+
+          <div class="pair">
+            <label for="input">Image:</label>
+            <input type="file" name="pic" id="inputImage">
+          </div>
+
+            <button type="button" name="button" id="uploadButton">Upload</button>
+            <button type="button" name="button" id="cancelButton">Cancel</button>
+        </div>
+      </div>
+
+      <div class="nav">
+
+      </div>
+
+      <div class="name">
+          <h1>Shoe Catalogue</h1>
+      </div>
+        <button type="button" name="button" id="addButton">Add</button>
+      <div class="slidediv">
+          <div class="slider">
+            <img class="mySlides" src="shoes/sneakerCover.png">
+          </div>
+      </div>
+
+      <div class="filterdiv">
+
+      </div>
+
+
+      <div class="searchResults">
+        <div class="shoesCat">
+
+        </div>
+      </div>
+
+      <script src="shoe_catalogue.js" charset="utf-8"></script>
+    </div>
+  </body>
+</html>
