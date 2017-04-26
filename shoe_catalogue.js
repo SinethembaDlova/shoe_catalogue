@@ -7,9 +7,7 @@ var closeicon = document.querySelector(".closeicon");
 var cancelUploading = document.querySelector("#cancelButton");
 var uploading = document.querySelector("#uploadButton");
 var shoesCat = document.querySelector('.shoesCat');
-var brandSelect = document.querySelector(".brandsSelect");
-var colorSelect = document.querySelector(".colorsSelect");
-var sizeSelect = document.querySelector(".sizesSelect");
+
 //**********My array of objects
 
 var shoes = [{
@@ -129,15 +127,20 @@ var FilterResults = myFilterTemplateInstance({brandFilter: brandsNames,
                                               colorFilter: colorsNames,
                                               sizeFilter:  sizesNumbers});
   document.querySelector('.filterdiv').innerHTML = FilterResults;
-//********** A function to make my cover pic dissaper when the the seach button is pressed
 
+  //*********Targeting my html elements
+  var brandSelect = document.querySelector(".brandsSelect");
+  var colorSelect = document.querySelector(".colorsSelect");
+  var sizeSelect = document.querySelector(".sizesSelect");
+
+
+//********** A function to make my cover pic dissaper when the the seach button is pressed
 var searchItems = function()
 {
     picDiv.style.display = "none";
     shoesCat.style.display = "block";
 
-    console.log('searchitemsclicked');
-    shoesCat.innerHTML = myTemplateInstance({shoe: shoeFiltering('All brands')});
+    shoesCat.innerHTML = myTemplateInstance({shoe: shoeFiltering(brandSelect.value)});
 }
 
 //**********function to show my overlay div when the add button is pressed
@@ -198,8 +201,8 @@ function shoeFiltering(selectedBrands)
   var searchResults = [];
   console.log(selectedBrands);
 
-  if (selectedBrands === "All Brands")
-      return shoes;
+  if (selectedBrands == "All brands")
+  return shoes;
 
   for (var i = 0; i < shoes.length; i++)
   {
@@ -209,11 +212,12 @@ function shoeFiltering(selectedBrands)
     }
 
   }
-    return searchResults;
     console.log(searchResults);
-    console.log(shoes[i].brand);
+    return searchResults;
+    //console.log(shoes[i].brand);
 }
-shoeFiltering('nike');
+shoeFiltering(brandSelect.value);
+
 
 //********** Listening to any event that happens on my webpage
 addButton.addEventListener("click", addAnItem);
