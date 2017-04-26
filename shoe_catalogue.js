@@ -79,7 +79,9 @@ var shoes = [{
 //Compiling and rendering my shoe display
 var myTemplate = document.querySelector("#myTemplate").innerHTML;
 var myTemplateInstance = Handlebars.compile(myTemplate);
-var iziphumo = myTemplateInstance({shoe: shoes});
+var iziphumo = myTemplateInstance({
+    shoe: shoes
+});
 shoesCat.innerHTML += iziphumo;
 
 //**********Compiling and rendering the population of my dropdown option values
@@ -95,75 +97,68 @@ var colorMap = {};
 var sizeMap = {};
 
 //**********Creating a unique dynamic list on my dropdowns. If an name is there it mustnt be added
-var dynamicPopulation = function ()
-{
-  for (var x = 0; x < shoes.length; x++)
-  {
-      var shoeData = shoes[x];
+var dynamicPopulation = function() {
+    for (var x = 0; x < shoes.length; x++) {
+        var shoeData = shoes[x];
 
-      if (brandMap[shoeData.brand] === undefined)
-      {
-          brandMap[shoeData.brand] = shoeData.brand;
-          brandsNames.push(shoeData.brand);
-      }
+        if (brandMap[shoeData.brand] === undefined) {
+            brandMap[shoeData.brand] = shoeData.brand;
+            brandsNames.push(shoeData.brand);
+        }
 
-      if (brandMap[shoeData.color] === undefined)
-      {
-          brandMap[shoeData.color] = shoeData.color;
-          colorsNames.push(shoeData.color);
-      }
+        if (brandMap[shoeData.color] === undefined) {
+            brandMap[shoeData.color] = shoeData.color;
+            colorsNames.push(shoeData.color);
+        }
 
-      if (brandMap[shoeData.size] === undefined)
-      {
-          brandMap[shoeData.size] = shoeData.size;
-          sizesNumbers.push(shoeData.size);
-      }
-  }
+        if (brandMap[shoeData.size] === undefined) {
+            brandMap[shoeData.size] = shoeData.size;
+            sizesNumbers.push(shoeData.size);
+        }
+    }
 }
 dynamicPopulation();
 
 //********** Rendering my template
-var FilterResults = myFilterTemplateInstance({brandFilter: brandsNames,
-                                              colorFilter: colorsNames,
-                                              sizeFilter:  sizesNumbers});
-  document.querySelector('.filterdiv').innerHTML = FilterResults;
+var FilterResults = myFilterTemplateInstance({
+    brandFilter: brandsNames,
+    colorFilter: colorsNames,
+    sizeFilter: sizesNumbers
+});
+document.querySelector('.filterdiv').innerHTML = FilterResults;
 
-  //*********Targeting my html elements
-  var brandSelect = document.querySelector(".brandsSelect");
-  var colorSelect = document.querySelector(".colorsSelect");
-  var sizeSelect = document.querySelector(".sizesSelect");
+//*********Targeting my html elements
+var brandSelect = document.querySelector(".brandsSelect");
+var colorSelect = document.querySelector(".colorsSelect");
+var sizeSelect = document.querySelector(".sizesSelect");
 
 
 //********** A function to make my cover pic dissaper when the the seach button is pressed
-var searchItems = function()
-{
+var searchItems = function() {
     picDiv.style.display = "none";
     shoesCat.style.display = "block";
 
-    shoesCat.innerHTML = myTemplateInstance({shoe: shoeFiltering(brandSelect.value)});
+    shoesCat.innerHTML = myTemplateInstance({
+        shoe: shoeFiltering(brandSelect.value)
+    });
 }
 
 //**********function to show my overlay div when the add button is pressed
-var addAnItem = function()
-{
+var addAnItem = function() {
     overlay.style.display = "block";
 }
 
 //**********Function to close my overlay div when the cancel or x icon is pressed
-var cancelAddingItems = function()
-{
-    if (overlay.style.display = "block")
-    {
+var cancelAddingItems = function() {
+    if (overlay.style.display = "block") {
         overlay.style.display = "none";
     }
 }
 
 //**********A function to upload new items, take values added and push it into array of objects
-var uploadItems = function()
-{
+var uploadItems = function() {
     //*********updating my catalogue with taking the ipnut values and push it into shoe array of objects
-    shoes.push(
-    {
+    shoes.push({
         image: document.querySelector("#inputImage").value,
         brand: document.querySelector("#inputBrand").value,
         color: document.querySelector("#inputColor").value,
@@ -173,14 +168,17 @@ var uploadItems = function()
     });
 
     //*********re-rendering my item display with updates
-    var iziphumo = myTemplateInstance({shoe: shoes})
-    shoesCat.innerHTML = iziphumo;
+    shoesCat.innerHTML = myTemplateInstance({
+        shoe: shoeFiltering(brandSelect.value)
+    });
+    dynamicPopulation();
 
     //*********re-rendering my filters with updates
-    dynamicPopulation();
-    var FilterResults = myFilterTemplateInstance({brandFilter: brandsNames,
-                                                  colorFilter: colorsNames,
-                                                  sizeFilter:  sizesNumbers});
+    var FilterResults = myFilterTemplateInstance({
+        brandFilter: brandsNames,
+        colorFilter: colorsNames,
+        sizeFilter: sizesNumbers
+    });
     document.querySelector('.filterdiv').innerHTML = FilterResults;
 
     //*********clear all my input boxes
@@ -196,25 +194,21 @@ var uploadItems = function()
 }
 
 //********** Filtering my brands
-function shoeFiltering(selectedBrands)
-{
-  var searchResults = [];
-  console.log(selectedBrands);
+function shoeFiltering(selectedBrands) {
+    var searchResults = [];
 
-  if (selectedBrands == "All brands")
-  return shoes;
+    if (selectedBrands == "All brands")
+        return shoes;
 
-  for (var i = 0; i < shoes.length; i++)
-  {
-    if (shoes[i].brand === selectedBrands)
-    {
-      searchResults.push(shoes[i])
+    for (var i = 0; i < shoes.length; i++) {
+        if (shoes[i].brand === selectedBrands) {
+            searchResults.push(shoes[i])
+        }
+
     }
-
-  }
     console.log(searchResults);
-    return searchResults;
     //console.log(shoes[i].brand);
+    return searchResults;
 }
 shoeFiltering(brandSelect.value);
 
