@@ -139,7 +139,9 @@ var searchItems = function() {
     shoesCat.style.display = "block";
 
     shoesCat.innerHTML = myTemplateInstance({
-        shoe: shoeFiltering(brandSelect.value)
+        shoe: brandFiltering(brandSelect.value) &&
+              colorFiltering(colorSelect.value) &&
+              sizeFiltering(sizeSelect.value)
     });
 }
 
@@ -167,10 +169,7 @@ var uploadItems = function() {
         price: document.querySelector("#inputPrice").value
     });
 
-    //*********re-rendering my item display with updates
-    shoesCat.innerHTML = myTemplateInstance({
-        shoe: shoeFiltering(brandSelect.value)
-    });
+
     dynamicPopulation();
 
     //*********re-rendering my filters with updates
@@ -193,24 +192,64 @@ var uploadItems = function() {
     overlay.style.display = "none";
 }
 
-//********** Filtering my brands
-function shoeFiltering(selectedBrands) {
-    var searchResults = [];
 
-    if (selectedBrands == "All brands")
+//********** Filtering my brands
+function brandFiltering(selectedBrand) {
+    var brandSearchResults = [];
+
+
+    if (selectedBrand == "All brands")
         return shoes;
 
     for (var i = 0; i < shoes.length; i++) {
-        if (shoes[i].brand === selectedBrands) {
-            searchResults.push(shoes[i])
+        if (shoes[i].brand === selectedBrand) {
+            brandSearchResults.push(shoes[i])
         }
 
     }
-    console.log(searchResults);
-    //console.log(shoes[i].brand);
-    return searchResults;
+    //console.log(brandSearchResults);
+
+    return brandSearchResults;
 }
-shoeFiltering(brandSelect.value);
+brandFiltering(brandSelect.value);
+
+//********** Filtering my color
+function colorFiltering(selectedColor) {
+    var colorSearchResults = [];
+
+
+    if (selectedColor == "All colors")
+        return shoes;
+
+    for (var i = 0; i < shoes.length; i++) {
+        if (shoes[i].color === selectedColor) {
+            colorSearchResults.push(shoes[i])
+        }
+
+    }
+        //console.log(colorSearchResults);
+        return colorSearchResults;
+}
+colorFiltering(colorSelect.value);
+
+//********** Filtering my size
+function sizeFiltering(selectedSize) {
+    var sizeSearchResults = [];
+
+
+    if (selectedSize == "All sizes")
+        return shoes;
+
+    for (var i = 0; i < shoes.length; i++) {
+        if (shoes[i].size === selectedSize) {
+            sizeSearchResults.push(shoes[i])
+        }
+
+    }
+    console.log(sizeSearchResults);
+    return sizeSearchResults;
+}
+sizeFiltering(sizeSelect.value);
 
 
 //********** Listening to any event that happens on my webpage
