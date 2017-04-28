@@ -247,6 +247,7 @@ function sizeFiltering(selectedSize) {
 
     }
     console.log(sizeSearchResults);
+
     return sizeSearchResults;
 }
 sizeFiltering(sizeSelect.value);
