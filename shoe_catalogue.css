@@ -243,7 +243,7 @@ body
   font-weight: bold;
   font-size: 16px;
   padding: 8px 21px 3px;
-  margin-top: 70px;
+  margin-top: 20px;
   margin-right: 5px;
   outline: none;
 }
@@ -253,31 +253,27 @@ body
   background-color: darkorange;
   color: white;
 }
-.pair
-{
-  display: block;
-  margin-left: 35px;
-  margin-top: 50px;
-  margin-bottom: -40px;
-}
 
-
-.pair label
+.additems label
 {
   font-size: 18px;
   border-radius: 4px;
+  margin-bottom: -40px;
 
 }
 
-.pair input
+.additems input
 {
   height: 24px;
   width: 160px;
+  
   text-align: center;
   font-weight: bold;
+  margin-left: 50px;
+  margin-bottom: 15px;
 }
 
-.pair input:focus
+.additems input:focus
 {
   border: solid darkorange;
 
@@ -298,7 +294,6 @@ body
 }
 .additems img
 {
-  float:none;
   height: 30px;
   width: 30px;
   margin-left: 1.5px;

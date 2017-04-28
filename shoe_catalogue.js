@@ -139,9 +139,9 @@ var searchItems = function() {
     shoesCat.style.display = "block";
 
     shoesCat.innerHTML = myTemplateInstance({
-        shoe: brandFiltering(brandSelect.value) &&
-              colorFiltering(colorSelect.value) &&
-              sizeFiltering(sizeSelect.value)
+        shoe: brandFiltering(brandSelect.value),
+        shoe: colorFiltering(colorSelect.value),
+        shoe: sizeFiltering(sizeSelect.value)
     });
 }
 
