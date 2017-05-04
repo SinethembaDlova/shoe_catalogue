@@ -138,10 +138,14 @@ var searchItems = function() {
     picDiv.style.display = "none";
     shoesCat.style.display = "block";
 
-    shoesCat.innerHTML = myTemplateInstance({
+    /*shoesCat.innerHTML = myTemplateInstance({
         shoe: brandFiltering(brandSelect.value),
         shoe: colorFiltering(colorSelect.value),
         shoe: sizeFiltering(sizeSelect.value)
+    });*/
+
+    shoesCat.innerHTML = myTemplateInstance({
+        shoe: filterEngine(brandSelect.value, colorSelect.value, sizeSelect.value)
     });
 }
 
@@ -169,6 +173,10 @@ var uploadItems = function() {
         price: document.querySelector("#inputPrice").value
     });
 
+    var iziphumo = myTemplateInstance({
+        shoe: shoes
+    });
+    shoesCat.innerHTML = iziphumo;
 
     dynamicPopulation();
 
@@ -192,7 +200,7 @@ var uploadItems = function() {
     overlay.style.display = "none";
 }
 
-
+/*
 //********** Filtering my brands
 function brandFiltering(selectedBrand) {
     var brandSearchResults = [];
@@ -250,7 +258,34 @@ function sizeFiltering(selectedSize) {
 
     return sizeSearchResults;
 }
-sizeFiltering(sizeSelect.value);
+sizeFiltering(sizeSelect.value);*/
+
+function filterEngine(selectedBrand, selectedColor, selectedSize){
+  results = [];
+
+  for (var i = 0; i < shoes.length; i++) {
+    var shoeMatchesBrand = false;
+    var shoeMatchesColor = false;
+    var shoeMatchesSize = false;
+
+    if(selectedBrand == shoes[i].brand || selectedBrand == "All brands"){
+      shoeMatchesBrand = true;
+    }
+
+    if(selectedColor == shoes[i].color || selectedColor == "All colors") {
+      shoeMatchesColor = true;
+    }
+
+    if(selectedSize == shoes[i].size || selectedSize == "All sizes") {
+      shoeMatchesSize = true;
+    }
+
+    if(shoeMatchesBrand && shoeMatchesSize && shoeMatchesColor){
+      results.push(shoes[i]);
+    }
+  }
+  return results
+}
 
 
 //********** Listening to any event that happens on my webpage
