@@ -132,12 +132,61 @@ var brandSelect = document.querySelector(".brandsSelect");
 var colorSelect = document.querySelector(".colorsSelect");
 var sizeSelect = document.querySelector(".sizesSelect");
 
+//**********A function to upload new items, take values added and push it into array of objects
+var uploadItems = function() {
+    //*********updating my catalogue with taking the ipnut values and push it into shoe array of objects
+
+
+    shoes.push({
+        image: document.querySelector("#inputImage").value.substring(12),
+        brand: document.querySelector("#inputBrand").value,
+        color: document.querySelector("#inputColor").value,
+        size: document.querySelector("#inputSize").value,
+        in_stock: document.querySelector("#inputInStock").value,
+        price: document.querySelector("#inputPrice").value
+    });
+
+    var iziphumo = myTemplateInstance({
+        shoe: shoes
+    });
+    shoesCat.innerHTML = iziphumo;
+    dynamicPopulation();
+
+
+    //*********re-rendering my filters with updates
+    var FilterResults = myFilterTemplateInstance({
+        brandFilter: brandsNames,
+        colorFilter: colorsNames,
+        sizeFilter: sizesNumbers
+    });
+    document.querySelector('.filterdiv').innerHTML = FilterResults;
+
+    //*********clear all my input boxes
+    document.querySelector("#inputImage").value = '';
+    document.querySelector("#inputBrand").value = '';
+    document.querySelector("#inputColor").value = '';
+    document.querySelector("#inputSize").value = '';
+    document.querySelector("#inputInStock").value = '';
+    document.querySelector("#inputPrice").value = '';
+
+    //********** closing my overlay div
+    overlay.style.display = "none";
+
+    var searchButton = document.querySelector("#searchButton");
+    searchButton.addEventListener("click", searchItems);
+
+}
 
 //********** A function to make my cover pic dissaper when the the seach button is pressed
 var searchItems = function() {
+
+  var brandSelect = document.querySelector(".brandsSelect");
+  var colorSelect = document.querySelector(".colorsSelect");
+  var sizeSelect = document.querySelector(".sizesSelect");
+  
     picDiv.style.display = "none";
     shoesCat.style.display = "block";
-
+console.log('1545');
     /*shoesCat.innerHTML = myTemplateInstance({
         shoe: brandFiltering(brandSelect.value),
         shoe: colorFiltering(colorSelect.value),
@@ -161,44 +210,7 @@ var cancelAddingItems = function() {
     }
 }
 
-//**********A function to upload new items, take values added and push it into array of objects
-var uploadItems = function() {
-    //*********updating my catalogue with taking the ipnut values and push it into shoe array of objects
-    shoes.push({
-        image: document.querySelector("#inputImage").value,
-        brand: document.querySelector("#inputBrand").value,
-        color: document.querySelector("#inputColor").value,
-        size: document.querySelector("#inputSize").value,
-        in_stock: document.querySelector("#inputInStock").value,
-        price: document.querySelector("#inputPrice").value
-    });
 
-    var iziphumo = myTemplateInstance({
-        shoe: shoes
-    });
-    shoesCat.innerHTML = iziphumo;
-
-    dynamicPopulation();
-
-    //*********re-rendering my filters with updates
-    var FilterResults = myFilterTemplateInstance({
-        brandFilter: brandsNames,
-        colorFilter: colorsNames,
-        sizeFilter: sizesNumbers
-    });
-    document.querySelector('.filterdiv').innerHTML = FilterResults;
-
-    //*********clear all my input boxes
-    document.querySelector("#inputImage").value = '';
-    document.querySelector("#inputBrand").value = '';
-    document.querySelector("#inputColor").value = '';
-    document.querySelector("#inputSize").value = '';
-    document.querySelector("#inputInStock").value = '';
-    document.querySelector("#inputPrice").value = '';
-
-    //********** closing my overlay div
-    overlay.style.display = "none";
-}
 
 /*
 //********** Filtering my brands
@@ -263,20 +275,22 @@ sizeFiltering(sizeSelect.value);*/
 function filterEngine(selectedBrand, selectedColor, selectedSize){
   results = [];
 
+  console.log(JSON.stringify(shoes));
   for (var i = 0; i < shoes.length; i++) {
+    console.log('hello');
     var shoeMatchesBrand = false;
     var shoeMatchesColor = false;
     var shoeMatchesSize = false;
-
-    if(selectedBrand == shoes[i].brand || selectedBrand == "All brands"){
+    console.log(selectedBrand);
+    if(selectedBrand === shoes[i].brand || selectedBrand === "All brands"){
       shoeMatchesBrand = true;
     }
 
-    if(selectedColor == shoes[i].color || selectedColor == "All colors") {
+    if(selectedColor === shoes[i].color || selectedColor === "All colors") {
       shoeMatchesColor = true;
     }
 
-    if(selectedSize == shoes[i].size || selectedSize == "All sizes") {
+    if(selectedSize === shoes[i].size || selectedSize === "All sizes") {
       shoeMatchesSize = true;
     }
 
@@ -284,6 +298,7 @@ function filterEngine(selectedBrand, selectedColor, selectedSize){
       results.push(shoes[i]);
     }
   }
+  //console.log(JSON.stringify(results));
   return results
 }
 
